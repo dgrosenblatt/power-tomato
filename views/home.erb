@@ -1,0 +1,23 @@
+<div class="small-12 columns">
+
+  <h1>Find your PowR Tomato</h1>
+
+  <h4>A PowR Tomato is a movie critic that shares your filmological taste.</h4>
+  <h4>A PowR Tomato is not chosen. It is revealed.</h4>
+
+  <form action='/rate' method='GET'>
+    <input type='text' name='movie' size='' placeholder='Enter a Movie' >
+    <button type='submit'>Submit</button>
+  </form>
+
+</div>
+
+<div class="small-12 columns">
+
+  <% @critics.each do |critic| %>
+    <p>
+      <%= critic.name %> agreed <%= critic.agree %> times.
+    </p>
+  <% end %>
+
+</div>
