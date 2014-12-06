@@ -1,4 +1,10 @@
-<h4>Ok, let's talk about <%= @movie[:title] %>.</h4>
+<div class="row">
+  <div class="small-12 columns">
+    <div class="small-12 columns">
+    <h4>Ok, let's talk about <%= @movie[:title] %>.</h4>
+    </div>
+  </div>
+</div>
 
 
 
@@ -12,24 +18,17 @@
         <p>
           <%= @movie[:synopsis] %>
         </p>
-        <ul>
+        <p>Released <%= @movie[:year] %>. Starring
           <% @movie[:abridged_cast].each do |actor|  %>
-            <li><small> <%= actor[:name] %> as <%= actor[:characters].first unless actor[:characters].nil? %> </small></li>
+            <% if @movie[:abridged_cast].last == actor %>
+              and <%= actor[:name] %>.
+            <% else %>
+              <%= actor[:name] %>,
+            <% end %>
           <% end %>
-        </ul>
-        <small>
-          Released <%= @movie[:year] %>. Rated <%= @movie[:mpaa_rating] %>.
-        </small>
+        </p>
       </div>
     </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="small-12 columns">
-    <p>
-      What did you think?
-    </p>
   </div>
 </div>
 

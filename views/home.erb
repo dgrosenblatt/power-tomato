@@ -1,12 +1,12 @@
 <div class="small-12 columns">
 
-  <h1>Find your PowR Tomato</h1>
-
   <h4>A PowR Tomato is a movie critic that shares your filmological taste.</h4>
 
   <form action='/rate' method='GET'>
     <input type='text' name='movie' size='' placeholder='Enter a Movie' >
-    <button type='submit'>Submit</button>
+    <div class="small-3 small-centered columns">
+      <input type='submit' class='button expand radius'>
+    </div>
   </form>
 
 </div>
@@ -20,15 +20,15 @@
 
 
     <% @critics.each do |critic| %>
-      <p>
+      <p class="critic">
         <%= critic.name %>, <%= critic.publication %> agreed with you <%= critic.agree %> times (<%= critic.pct %>%).
-        <div class="progress small-10 <%= critic.meter_color %> radius">
-          <span class="meter" style="width: <%= critic.pct %>%"></span>
-        </div>
       </p>
+      <div class="progress small-10 <%= critic.meter_color %> radius">
+        <span class="meter" style="width: <%= critic.pct %>%"></span>
+      </div>
 
     <% end %>
-    <% unless params[:show] == "all" %>
+    <% if params[:show].nil? && Critic.all.length > 0 %>
       <p>
         <a href="?show=all">Show All Critics</a>
       </p>
@@ -39,7 +39,9 @@
   <div class="small-12 columns">
     <form action="/reset" method="post">
       <input type='hidden' name='reset' value='true' />
-      <input type='submit' class="button success" value='Start over' />
+      <div class="small-3 small-centered columns">
+        <input type='submit' class="button success expand radius" value='Start over' />
+      </div>
     </form>
   </div>
   <% end  %>
