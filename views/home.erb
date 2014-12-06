@@ -3,7 +3,6 @@
   <h1>Find your PowR Tomato</h1>
 
   <h4>A PowR Tomato is a movie critic that shares your filmological taste.</h4>
-  <h4>A PowR Tomato is not chosen. It is revealed.</h4>
 
   <form action='/rate' method='GET'>
     <input type='text' name='movie' size='' placeholder='Enter a Movie' >
@@ -13,11 +12,34 @@
 </div>
 
 <div class="small-12 columns">
+    <% if params[:show] == "all" && Critic.all.length > 0 %>
+      <p>
+        <a href="/">Show Fewer Critics</a>
+      </p>
+    <% end  %>
 
-  <% @critics.each do |critic| %>
-    <p>
-      <%= critic.name %> agreed <%= critic.agree %> times.
-    </p>
-  <% end %>
 
+    <% @critics.each do |critic| %>
+      <p>
+        <%= critic.name %>, <%= critic.publication %> agreed with you <%= critic.agree %> times (<%= critic.pct %>%).
+        <div class="progress small-10 <%= critic.meter_color %> radius">
+          <span class="meter" style="width: <%= critic.pct %>%"></span>
+        </div>
+      </p>
+
+    <% end %>
+    <% unless params[:show] == "all" %>
+      <p>
+        <a href="?show=all">Show All Critics</a>
+      </p>
+    <% end  %>
 </div>
+
+  <% if Critic.all.length > 0  %>
+  <div class="small-12 columns">
+    <form action="/reset" method="post">
+      <input type='hidden' name='reset' value='true' />
+      <input type='submit' class="button success" value='Start over' />
+    </form>
+  </div>
+  <% end  %>

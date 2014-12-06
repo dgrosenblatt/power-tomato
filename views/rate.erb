@@ -1,16 +1,54 @@
-<h4>Ok, let's talk about <%= @movie %>.</h4>
+<h4>Ok, let's talk about <%= @movie[:title] %>.</h4>
 
-<p>
-  What did you think?
-</p>
+
+
+<div class="row">
+  <div class="small-12 columns">
+    <div class="small-3 columns">
+      <img src="<%= @poster_link %>" alt="<%= @movie[:title] %>" />
+    </div>
+    <div class="small-9 columns">
+      <div class=" panel callout radius">
+        <p>
+          <%= @movie[:synopsis] %>
+        </p>
+        <ul>
+          <% @movie[:abridged_cast].each do |actor|  %>
+            <li><small> <%= actor[:name] %> as <%= actor[:characters].first unless actor[:characters].nil? %> </small></li>
+          <% end %>
+        </ul>
+        <small>
+          Released <%= @movie[:year] %>. Rated <%= @movie[:mpaa_rating] %>.
+        </small>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 columns">
+    <p>
+      What did you think?
+    </p>
+  </div>
+</div>
 
 <div class="row">
   <div class="small-12 columns">
     <div class="small-6 columns">
-      <a href="#" class="button alert expand">Fresh</a>
+      <form action='/rate' method='POST'>
+        <input type='hidden' name='opinion' value='fresh' />
+        <input type='hidden' name='movie_id' value='<%= @movie[:id] %>' />
+        <input type='submit' class="button alert expand" value='Fresh' />
+      </form>
     </div>
+
     <div class="small-6 columns">
-      <a href="#" class="button success expand">Rotten</a>
+      <form action='/rate' method='POST'>
+        <input type='hidden' name='opinion' value='rotten' type='submit' />
+        <input type='hidden' name='movie_id' value='<%= @movie[:id] %>' />
+        <input type='submit' class="button success expand" value='Rotten' />
+      </form>
     </div>
   </div>
 </div>
