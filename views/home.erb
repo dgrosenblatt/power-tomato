@@ -21,7 +21,10 @@
 
     <% @critics.each do |critic| %>
       <p class="critic">
-        <%= critic.name %>, <%= critic.publication %> agreed with you <%= critic.agree %> times (<%= critic.pct %>%).
+        <% unless critic.name == "" %>
+          <%= critic.name %>,
+        <% end %>
+        <%= critic.publication %> agreed with you <%= critic.agree %> times (<%= critic.pct %>%).
       </p>
       <div class="progress small-10 <%= critic.meter_color %> radius">
         <span class="meter" style="width: <%= critic.pct %>%"></span>
@@ -37,11 +40,14 @@
 
   <% if Critic.all.length > 0  %>
   <div class="small-12 columns">
-    <form action="/reset" method="post">
-      <input type='hidden' name='reset' value='true' />
-      <div class="small-3 small-centered columns">
+    <div class="small-12 columns">
+      <a href="/recommendations" class="button success expand radius">Recommendations</a>
+    </div>
+    <div class="small-12 columns">
+      <form action="/reset" method="post">
+        <input type='hidden' name='reset' value='true' />
         <input type='submit' class="button success expand radius" value='Start over' />
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
   <% end  %>

@@ -12,8 +12,12 @@ body {
   text-align: center;
 }
 
-#header:hover {
+#header a:hover {
   color: tomato;
+}
+
+#header a {
+  color: black;
 }
 
 .contain {

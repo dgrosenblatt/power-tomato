@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141205185358) do
+ActiveRecord::Schema.define(version: 20141206214741) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,10 @@ ActiveRecord::Schema.define(version: 20141205185358) do
     t.string  "publication"
     t.integer "agree",       default: 0
     t.integer "disagree",    default: 0
+  end
+
+  create_table "movies", force: true do |t|
+    t.integer "rt_id"
   end
 
 end
