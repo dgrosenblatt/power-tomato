@@ -6,7 +6,6 @@ require 'sinatra/reloader'
 require 'json'
 require 'net/http'
 require 'open-uri'
-require 'pry'
 
 require_relative './models/critic'
 require_relative './models/movie'
