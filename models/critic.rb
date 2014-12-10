@@ -1,4 +1,5 @@
 class Critic < ActiveRecord::Base
+  validates :name, uniqueness: { case_sensitive: false }
   def pct
     ((agree.to_f / (agree + disagree)) * 100).to_i
   end

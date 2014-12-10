@@ -38,6 +38,8 @@ def fix_poster(link)
 end
 
 def process_reviews(reviews, opinion)
+  # use validation returning true/false to test instead of find_by
+  # also look up increment! method
   reviews.each do |review|
     critic = Critic.find_by(name: review[:critic])
     if opinion == review[:freshness] # share same opinion/agree
@@ -83,12 +85,16 @@ post '/rate' do
   @opinion = params[:opinion]
   @reviews = reviews_rt_query(params[:movie_id])
   process_reviews(@reviews, @opinion)
+  # use uniqueness validation instead?
   if Movie.find_by(rt_id: params[:movie_id]).nil? && @opinion == "fresh"
     Movie.create({ rt_id: params[:movie_id] })
   end
   redirect '/'
 end
 
+# include link in view
+# http://www.rottentomatoes.com/critic/peter-rainer/ => Best Reviewed section w/ nokogiri?
+#
 get '/recommendations' do
   @recommendations = [] # array of { movie: "troll 2", poster_link: "http..."}
   movies = Movie.all
